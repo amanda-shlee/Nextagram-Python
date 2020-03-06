@@ -1,0 +1,16 @@
+{% extends "_layout.html" %} {% block content %}
+
+<h1>hello</h1>
+{% if not current_user.is_following(user)%}
+<form action="{{url_for('follow.create', idol_id=user.id)}}" method="POST">
+  <button class="btn btn-outline-warning">
+    Follow
+  </button>
+</form>
+{% endif %}
+
+<div>
+  <h5>Followers: {{user.fans|length}}</h5>
+  <h5>Following: {{user.idol|length}}</h5>
+</div>
+{% endblock %}

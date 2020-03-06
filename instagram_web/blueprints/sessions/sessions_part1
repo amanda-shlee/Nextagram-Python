@@ -1,0 +1,31 @@
+from flask import Blueprint, render_template, redirect, url_for, request, flash, session
+from models.user import User
+from utils.__init__ import login_manager
+from werkzeug.security import check_password_hash
+
+# sessions_blueprint = Blueprint(
+#     'sessions', __name__, template_folder='templates')
+
+# @sessions_blueprint.route('/', methods=['GET'])
+# def new():
+#     return render_template('sessions/new.html')
+
+# @sessions_blueprint.route('/new', methods=['POST'])
+# def login_show():
+#     password_to_check = request.form['password']
+#     user = User.get_or_none(User.name == request.form.get('name'))
+#     if user:
+#         hashed_password = user.password
+#         result = check_password_hash(hashed_password, password_to_check)
+#         session["user_id"] = user.id
+#         # flash("You're almost there")
+#         if result:
+#             login_user(User)
+#             flash("Successfully login 😉")
+#             return redirect(url_for("users.index"))
+#         else:
+#             flash("Please check your password again 😔")
+#             return render_template('sessions/new.html')
+#     else:
+#         flash("Have you signed up? 🤨")
+#         return render_template('sessions/new.html')

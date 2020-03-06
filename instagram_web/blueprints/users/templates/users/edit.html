@@ -1,0 +1,62 @@
+{% extends "_layout.html" %} {% block content %}
+<div class="d-flex justify-content-center">
+  <h2>
+    <b><i class="far fa-edit"></i> <span> </span> EDIT PROFILE</b>
+  </h2>
+</div>
+<img src="{{current_user.has_profile_image}}" alt="uploads" class="card-img-top;" style="border-radius: 20px;">
+
+<div style="margin-left: auto; margin-right: auto; margin-top:20px;">
+  <form action="{{url_for('users.upload_file')}}" method="POST" enctype="multipart/form-data">
+    <h4><b>Change your profile picture: </b></h4>
+    <input type="file" name="user_file">
+    <br></br>
+    <button type="submit" class="btn btn-outline-warning">Upload</button>
+  </form>
+  <br />
+  <form action="{{url_for('users.update', id=current_user.id)}}" method="POST">
+  <br />
+  <div>
+    <h4><b>Current User Name:</b></h4>
+  </div>
+  <div value="{{current_user.username}}">{{current_user.name}}</div>
+  <br />
+  <h4><b>New User Name: </b></h4>
+  <label for="name">User Name:</label>
+  <input
+  type="name"
+  class="form-control"
+  name="new_name"
+  value="{{current_user.name}}"
+  />
+  <br />
+  <div>
+    <h4><b>Current Email:</b></h4>
+  </div>
+  <div value="{{current_user.email}}">{{current_user.email}}</div>
+  <br />
+  <h4><b>New Email:</b></h4>
+  <label for="email">Email:</label>
+  <input
+  type="email"
+  class="form-control"
+  name="new_email"
+  value="{{current_user.email}}"
+  />
+  <br />
+  <button type="submit" class="btn btn-outline-warning">Update</button>
+</form>
+<br />
+<form action="{{url_for('images.upload_img')}}" method="POST" enctype="multipart/form-data">
+  <h4><b>Upload to your collections: </b></h4>
+  <input type="file" name="user_file">
+  <br></br>
+  <h4><b>Add your caption: </b></h4>
+  <input type="text" name="caption" class="form-control"/>
+  <br></br>
+  <button type="submit" class="btn btn-outline-warning">Upload</button>
+</form>
+</div>
+
+
+{% endblock %}

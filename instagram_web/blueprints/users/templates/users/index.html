@@ -1,0 +1,68 @@
+{% extends "_layout.html"%} {% block content %}
+<div class="d-flex justify-content-center">
+  <h2><b>News Feed</b></h2>
+</div>
+{% for image in images %}
+<div
+  class="card border border-warning rounded"
+  style="margin-top:50px; margin-right:auto; margin-left:auto; width: 600px;height:700px;background-color: black; outline-color:gold; padding:20px"
+>
+  <img
+    src="{{image.has_upload_image}}"
+    style="border-radius:20px; padding-bottom:0px;width:500px; height:500px; margin-right:auto; margin-left:auto;"
+  />
+  <hr style="outline-style: dark;" />
+  <div class="card-body" style="padding-top:5px;height:200px;">
+    <a
+      class="btn"
+      style=" background-color:black;border:none; color:gold; cursor:pointer;"
+      type="submit"
+    >
+      <h4>
+        <b><i class="far fa-heart"></i></b>
+      </h4>
+    </a>
+    <a
+      class="btn"
+      style=" background-color:black;border:none; color:gold; cursor:pointer;"
+      type="submit"
+    >
+      <h4>
+        <b><i class="far fa-comment"></i></b>
+      </h4>
+    </a>
+    <a
+      class="btn"
+      href="{{url_for('donations.new', image_id=image.id)}}"
+      type="submit"
+      style=" background-color:black;border:none; color:gold; cursor:pointer;"
+    >
+      <h4>
+        <b><i class="fas fa-donate"></i></b>
+      </h4>
+    </a>
+
+    <h4 style="margin-top:20px;">
+      <b
+        ><i class="far fa-user"> </i><span> </span> User: {{image.user.name}}</b
+      >
+    </h4>
+    <h5>
+      <i class="far fa-comment-dots"></i><span> </span>Caption:
+      {{image.caption}}
+    </h5>
+    {% if image.total_donations %}
+    <h5 class="card-text">
+      <i class="fas fa-dollar-sign"></i><span> </span>Donations:
+      ${{image.total_donations}}
+    </h5>
+    {% endif %}
+  </div>
+  <a
+    class="btn btn-outline-warning my-2 my-sm-0"
+    href="{{url_for('users.show', username=image.user.name)}}"
+  >
+    <i class="far fa-user-circle"></i><span> </span>View Profile
+  </a>
+</div>
+{% endfor %} {% endblock %}

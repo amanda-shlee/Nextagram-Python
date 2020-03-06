@@ -1,0 +1,53 @@
+blueprint = gives unique route naming 
+e.g. instead of @app.route >> @xxx_blueprint.route 
+# @users_blueprint.route('/<username>/follow', methods=["POST"])
+# def follow(username):
+#     images = list(Image.select().join(User).where(User.username == username))
+#     user = User.get_or_none(User.username == username)
+#     idol_id = user.id
+#     if user.private:
+#         f = Following(fan_id=current_user.id, idol_id=idol_id)
+#         f.save()
+#     else:
+#         f = Following(fan_id=current_user.id, idol_id=idol_id, approval=True)
+#         f.save()
+#     follow = Following.get_or_none(
+#         Following.fan_id == current_user.id and Following.idol_id == user.id)
+#     return render_template('users/show.html', images=images, user=user, username=username, follow=follow)
+# @users_blueprint.route('/<username>/unfollow', methods=["POST"])
+# def unfollow(username):
+#     images = list(Image.select().join(User).where(User.username == username))
+#     user = User.get_or_none(User.username == username)
+#     idol_id = user.id
+#     uf = Following.delete().where(Following.fan_id ==
+#                                   current_user.id and Following.idol_id == idol_id)
+#     uf.execute()
+#     follow = Following.get_or_none(
+#         Following.fan_id == current_user.id and Following.idol_id == user.id)
+#     return render_template('users/show.html', images=images, user=user, username=username, follow=follow)
+
+
+        <div class="row d-flex justify-content-end p-3 border-top border-secondary">
+            {% if current_user.username == user.username %}
+            <button class="btn btn-primary" data-toggle='modal' data-target='#contactModal'>Upload Pictures</button>
+
+
+            {% elif not current_user.username == user.username and not follow%}
+            <form action={{ url_for('users.follow', username=username) }}  method='POST' enctype="multipart/form-data">
+                <input type="hidden" required name='csrf_token' value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-primary">Follow</button>
+            </form>
+            {% elif not current_user.username == user.username and not follow.approval %}
+            <form action={{ url_for('users.unfollow', username=username) }}  method='POST' enctype="multipart/form-data">
+                <input type="hidden" required name='csrf_token' value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-primary">Follow Requested</button>
+            </form>
+            {% elif not current_user.username == user.username and follow %}
+            <form action={{ url_for('users.unfollow', username=username) }}  method='POST' enctype="multipart/form-data">
+                <input type="hidden" required name='csrf_token' value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-primary">Unfollow</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+
