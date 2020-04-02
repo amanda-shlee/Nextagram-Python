@@ -22,7 +22,7 @@ def login():
     if user:
         hashed_password = user.password
         result = check_password_hash(hashed_password, password_to_check)
-        # flash("You're almost there")
+
         if result:
             login_user(user)
             flash("Successfully login 😉")

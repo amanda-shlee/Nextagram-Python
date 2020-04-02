@@ -6,12 +6,6 @@ from flask_login import LoginManager, login_user, login_required, current_user
 follow_blueprint = Blueprint('follow', __name__, template_folder='templates')
 
 
-# @follow_blueprint.route('/new', methods=['GET'])
-# @login_required
-# def new():
-#     return render_template('users/show.html')
-
-
 @follow_blueprint.route('/<idol_id>', methods=['POST'])
 @login_required
 def create(idol_id):
